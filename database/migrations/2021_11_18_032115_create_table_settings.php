@@ -13,14 +13,16 @@ class CreateTableSettings extends Migration
      */
     public function up()
     {
-        Schema::create('user_notifications', function (Blueprint $table) {
+        Schema::create('user_notifications', function(Blueprint $table)
+        {
             $table->increments('id');
             $table->tinyinteger('receive_notifications')->default(0);
             $table->tinyinteger('receive_newsletter')->default(0);
             $table->tinyinteger('receive_special_offer')->default(0);
             $table->timestamps();
         });
-        Schema::create('user_statistics', function (Blueprint $table) {
+        Schema::create('user_statistics', function(Blueprint $table)
+        {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('distance_covered');
@@ -29,7 +31,8 @@ class CreateTableSettings extends Migration
             $table->dateTime('record_date');
             $table->timestamps();
         });
-        Schema::create('user_settings', function (Blueprint $table) {
+        Schema::create('user_settings', function(Blueprint $table)
+        {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('meta_key');

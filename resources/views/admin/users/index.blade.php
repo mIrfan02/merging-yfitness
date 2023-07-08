@@ -51,7 +51,7 @@
                                 <th>User E-mail</th>
                                 {{-- <th>Courses</th> --}}
                                 <th>Assign Role</th>
-                                <th>Package Subscribed</th>
+                                <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -86,18 +86,17 @@
                                         </select>
 
                                     </td>
-                                    <td>
-                                        @if (!is_null($user->subscriptionPlan))
-                                            {{ $user->subscriptionPlan->title }}
-                                        @else
-                                            N/A
-                                        @endif
-                                    </td>
+                                    <td>{{ $user->created_at }}</td>
                                     <td>
 
                                         <a href="{{ route('admin.users.delete', $user->id) }}" class="btn btn-danger"
                                             onclick="return confirm('Are you sure you want to delete this user?')">
                                             Delete
+                                        </a>
+
+                                        <a href="{{ route('admin.users.profile', $user->id) }}"
+                                            class="btn btn-primary btn-sm">
+                                            View Profile
                                         </a>
 
                                     </td>

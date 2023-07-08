@@ -6,14 +6,14 @@
 @endif
 
 @if ($message = Session::get('success'))
-<div class="alert alert-success alert-dismissable margin5" style="background-color: green;">
+<div class="alert alert-success alert-dismissable margin5" style="background-color: red;">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <strong>Success:</strong> {{ $message }}
 </div>
 @endif
 
 @if ($message = Session::get('error'))
-<div class="alert alert-danger alert-dismissable margin5" style="background-color: yellow;">
+<div class="alert alert-danger alert-dismissable margin5" style="background-color: red;">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <strong>Error:</strong> {{ $message }}
 </div>

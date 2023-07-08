@@ -156,8 +156,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
         Route::post('equipments',[CourseController::class,'coursEquipments']);
         Route::get('days/addDayActivity/{id}',[CourseController::class,'addAdminDayActivityForm']);
         Route::post('days/update-day-activity/{id}',[CourseController::class,'day_activity_update'])->name('course.dayactivity.update');
-        Route::post('course/videos',[CourseController::class,'addVideo'])->name('courses.courseVideos');
-
     });
 
     # Settings Management
@@ -194,8 +192,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
         Route::get('delete/{id}', [UsersController::class,'delete'])->name('users.delete');
         Route::get('admin/deleted-users',  [UsersController::class,'getDeletedUsers'])->name('deleted-users');
         Route::get('restore/{id}', [UsersController::class,'restore'])->name('users.restore');
+        Route::get('/users/{id}/permanent-delete',[UsersController::class,'permanentDelete'] )->name('users.permanent-delete');
+       
+        // Route::get('profile', [UsersController::class,'show'])->name('users.profile');
+        Route::get('profile/{id?}', [UsersController::class, 'show'])->name('users.profile');
 
-        Route::get('profile', [UsersController::class,'show'])->name('users.profile');
+
+        Route::get('blocked/{id}', [UsersController::class, 'blockUser'])->name('users.blocked');
+        Route::get('admin/user/unblocked/{id}', [UsersController::class, 'unblockUser'])->name('users.unblocked');
 
 
 
@@ -207,6 +211,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
         Route::get('{user}/restore',[UsersController::class,'getRestore']);
         Route::get('{user}',[UsersController::class,'show']);
         Route::post('{user}/passwordreset',[UsersController::class,'passwordreset']);
+
 
         # Sadek Start
         Route::get('/search/results',[UsersController::class,'user_search'])->name('user.search');
@@ -221,6 +226,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
     Route::get('{name?}',[JoshController::class,'showView']);
 
 });
+Route::get('/reports',[UsersController::class,'reports'])->name('users.reports');
 
 #FrontEndController
 Route::get('login',[FrontEndController::class,'getLogin'])->name('login');

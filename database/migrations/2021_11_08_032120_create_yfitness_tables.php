@@ -13,7 +13,8 @@ class CreateYfitnessTables extends Migration
      */
     public function up()
     {
-        Schema::create('courses', function (Blueprint $table) {
+        Schema::create('courses', function(Blueprint $table)
+        {
             $table->increments('id');
             $table->string('title');
             $table->text('description');
@@ -21,19 +22,22 @@ class CreateYfitnessTables extends Migration
             $table->integer('daystocompletion');
             $table->timestamps();
         });
-        Schema::create('course_category', function (Blueprint $table) {
+        Schema::create('course_category', function(Blueprint $table)
+        {
             $table->increments('id');
             $table->string('title');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
-        Schema::create('course_category_listing', function (Blueprint $table) {
+        Schema::create('course_category_listing', function(Blueprint $table)
+        {
             $table->increments('id');
             $table->integer('course_id');
             $table->integer('cat_id');
             $table->timestamps();
         });
-        Schema::create('course_user_progress', function (Blueprint $table) {
+        Schema::create('course_user_progress', function(Blueprint $table)
+        {
             $table->increments('id');
             $table->integer('course_id');
             $table->integer('cat_id');
@@ -42,7 +46,8 @@ class CreateYfitnessTables extends Migration
             $table->integer('completion_percentage');
             $table->timestamps();
         });
-        Schema::create('user_logbook', function (Blueprint $table) {
+        Schema::create('user_logbook', function(Blueprint $table)
+        {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('activity');

@@ -18,9 +18,9 @@ class UserFitnessIngrediants extends Migration
             $table->integer('user_id');
             $table->integer('fitness_goal_id');
             $table->integer('height');
-            $table->string('heightin')->nullable();
+            $table->string('heightin');
             $table->integer('weight');
-            $table->string('weightin')->nullable();
+            $table->string('weightin');
             $table->timestamps();
         });
     }

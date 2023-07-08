@@ -15,7 +15,6 @@ class AddFieldsToUserTable extends Migration {
 		Schema::table('users', function(Blueprint $table)
 		{
 			// add bio,gender,dob,pic,country,state,city,address,postal
-			
 			$table->text('bio')->nullable();
 			$table->string('gender')->nullable();
 			$table->date('dob')->nullable();

@@ -109,7 +109,7 @@ Courses List
                                     <td>{{ $category->title }}</td>
                                     <td>
                                         @if(!is_null($category->image))
-                                            <img src="{{ url($category->image) }}" width="50">
+                                            <img src="{{ url('/uploads/courses/'.$category->image) }}" width="50">
                                         @endif
                                     </td>
                                     <td>{{ $category->created_at->diffForHumans() }}</td>

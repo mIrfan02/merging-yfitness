@@ -15,9 +15,9 @@ class UsersApiField extends Migration
     {
         Schema::table('users', function ($table) {
             $table->string('api_token', 80)->after('password')
-                ->unique()
-                ->nullable()
-                ->default(null);
+                                ->unique()
+                                ->nullable()
+                                ->default(null);
         });
     }
 
