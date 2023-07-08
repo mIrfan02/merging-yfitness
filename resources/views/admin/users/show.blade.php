@@ -51,12 +51,15 @@
                                         data-hc="#000"></i>
                                     Change Password</a>
                             </li>
-                            <li>
-                                <a href="{{ route('admin.user.details', $user->id) }}">
-                                    <i class="livicon" data-name="gift" data-size="16" data-loop="true" data-c="#000"
-                                        data-hc="#000"></i>
-                                    Advanced User Profile</a>
-                            </li>
+                            @if ($role != 'admin')
+                                <li>
+
+                                    <a href="{{ route('admin.user.details', $user->id) }}">
+                                        <i class="livicon" data-name="gift" data-size="16" data-loop="true" data-c="#000"
+                                            data-hc="#000"></i>
+                                        Advanced User Profile</a>
+                                </li>
+                            @endif
 
                         </ul>
                     </div>

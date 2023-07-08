@@ -132,7 +132,7 @@ Tutrials Videos
                                     <td>
                                         @if(!is_null($record->video_url))
                                             <video width="220" height="180" controls>
-                                                <source src="{{ url($record->video_url) }}" type="video/mp4"> 
+                                                <source src="{{ url('/uploads/courses/'.$record->video_url) }}" type="video/mp4"> 
                                                     Your browser does not support the video tag.
                                             </video>
                                         @endif

@@ -64,6 +64,9 @@
 
                                             Restore
                                         </a>
+                                        <a href="{{ route('admin.users.permanent-delete', $user->id) }}"
+                                            onclick="return confirm('Are you sure you want to permanently delete this user?')"
+                                            class="btn btn-danger">Delete</a>
                                         {{-- <a href="{{ route('admin.restore/user', $user->id) }}"><i class="livicon"
                                                 data-name="user-flag" data-c="#6CC66C" data-hc="#6CC66C"
                                                 data-size="18"></i></a> --}}

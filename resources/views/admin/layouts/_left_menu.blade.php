@@ -105,12 +105,16 @@
                         Add New User
                     </a>
                 </li>
-                <li {!! Request::is('admin/users/*') && !Request::is('admin/users/create') ? 'class="active" id="active"' : '' !!}>
-                    <a href="{{ route('admin.users.profile') }}">
+
+
+                <li>
+                    <a href="{{ route('users.reports') }}">
                         <i class="fa fa-angle-double-right"></i>
-                        View Profile
+                        View Reports
                     </a>
                 </li>
+
+
                 <li {!! Request::is('admin/marketing/open-reminder/create') ? 'class="active" id="active"' : '' !!}>
                     <a href="{{ route('admin.openreminder.index') }}">
                         <i class="fa fa-angle-double-right"></i>

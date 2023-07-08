@@ -20,9 +20,40 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Support\Str;
 use Auth;
+use App\Models\Report;
 
 class UsersController extends JoshController
 {
+
+
+
+
+
+   public function   reports(){
+    // dd("kuch");
+    $reports = Report::all();
+    return view('admin.users.reports',compact('reports'));
+   }
+
+   public function blockUser($id)
+   {
+       $user = User::findOrFail($id);
+       $user->status = 1; // Set the status to 1 (blocked)
+       $user->save();
+       return redirect()->back()->with('success', 'User has been blocked');
+
+       
+   }
+   public function unblockUser($id)
+   {
+       $user = User::findOrFail($id);
+       $user->status = 0; // Set the status to 0 (unblocked)
+       $user->save();
+   
+       return redirect()->back()->with('success', 'User has been unblocked');
+   }
+   
+
 
     /**
      * Show a list of all the users.
@@ -369,6 +400,18 @@ public function deletedUsers()
     return redirect()->route('admin.deleted-users')->with('success', 'User has been restored.');
 }
 
+
+// code to delete user permanent from deleted user view
+public function permanentDelete($id)
+{
+    $deletedUser = User::onlyTrashed()->findOrFail($id);
+    $deletedUser->forceDelete();
+
+    return redirect()->route('admin.deleted-users')->with('success', 'User has been permanently deleted.');
+}
+
+
+
     /**
      * Delete Confirm
      *
@@ -492,33 +535,61 @@ public function deletedUsers()
      * @param  int $id
      * @return Response
      */
-    public function show()
+    // public function show()
+    // {
+    //     try {
+    //         // $id=Auth::id();
+         
+    //         // Get the user information
+    //         $user = Sentinel::getUser();
+            
+    //         $role = $user->roles()->first()->slug;
+    //         dd($role);
+    //         //get country name
+    //         // dd($user);
+    //         if ($user->country) {
+    //             $user->country = $this->countries[$user->country];
+    //         }
+
+    //     } catch (UserNotFoundException $e) {
+    //         // Prepare the error message
+    //         $error = Lang::get('users/message.user_not_found', compact('id'));
+
+    //         // Redirect to the user management page
+    //         return Redirect::route('admin.users.index')->with('error', $error);
+    //     }
+
+    //     // Show the page
+    //     return view('admin.users.show', compact('user'));
+
+    // }
+
+
+    public function show($id = null)
     {
         try {
-            // $id=Auth::id();
-         
-            // Get the user information
-            $user = Sentinel::getUser();
-          
-
-            //get country name
-            // dd($user);
-            if ($user->country) {
-                $user->country = $this->countries[$user->country];
+            $user = null;
+            $role = 'admin';
+    
+            if ($id) {
+                $user = User::findOrFail($id);
+                // Fetch the user's roles
+                $roles = $user->roles()->pluck('slug')->toArray();
+                $role = in_array('admin', $roles) ? 'admin' : 'user';
+            } else {
+                $user = Sentinel::getUser();
             }
-
+    
+            return view('admin.users.show', compact('user', 'role'));
         } catch (UserNotFoundException $e) {
-            // Prepare the error message
             $error = Lang::get('users/message.user_not_found', compact('id'));
-
-            // Redirect to the user management page
             return Redirect::route('admin.users.index')->with('error', $error);
         }
-
-        // Show the page
-        return view('admin.users.show', compact('user'));
-
     }
+    
+
+
+
 
 //updated code 
 
@@ -591,13 +662,16 @@ public function resetPassword(Request $request)
     {
         $user = User::find($id);
         if (!is_null($user)) {
+            $roles = $user->roles()->pluck('slug')->toArray();
+                $role = in_array('admin', $roles) ? 'admin' : 'user';
+                // dd($role);
             $course_ids = \App\UserCourseSchedule::where('user_id', $user->id)->pluck('course_id')->toArray();
             $courses = \App\Courses::whereIn('id', $course_ids)->get();
 
             $friends = UserFriend::where('user_id', $user->id)->where('is_accepted', 1)->get();
             $new_friends = UserFriend::where('user_id', $user->id)->where('is_accepted', NULL)->where('is_rejected', NULL)->get();
             $notifications = UserPushNotification::where('user_id', $user->id)->orderBy('id', 'DESC')->get();
-            return view('admin.users.user-details', compact('user', 'friends', 'new_friends', 'courses', 'notifications'));
+            return view('admin.users.user-details', compact('user', 'friends', 'new_friends', 'courses', 'notifications','role'));
         }
         else {
             return back();

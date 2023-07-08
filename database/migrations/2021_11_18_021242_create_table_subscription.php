@@ -13,19 +13,21 @@ class CreateTableSubscription extends Migration
      */
     public function up()
     {
-        Schema::create('subscriptions', function (Blueprint $table) {
+        Schema::create('subscriptions', function(Blueprint $table)
+        {
             $table->increments('id');
             $table->string('title');
-            $table->double('per_month_fee', 11, 2)->nullable();
-            $table->double('total_fee', 11, 2)->nullable();
+            $table->double('per_month_fee',11,2)->nullable();
+            $table->double('total_fee',11,2)->nullable();
             $table->string('status')->default(1);
             $table->timestamps();
         });
-        Schema::create('user_subscriptions', function (Blueprint $table) {
+        Schema::create('user_subscriptions', function(Blueprint $table)
+        {
             $table->increments('id');
             $table->integer('user_id');
-            $table->double('per_month_fee', 11, 2);
-            $table->double('total_fee', 11, 2);
+            $table->double('per_month_fee',11,2);
+            $table->double('total_fee',11,2);
             $table->string('fee_charge')->default(0);
             $table->text('payment_id');
             $table->date('payment_date');
